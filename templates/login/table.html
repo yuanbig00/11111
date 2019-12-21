@@ -1,0 +1,287 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- <link rel="stylesheet" href="assets/materialize/css/materialize.min.css" media="screen,projection" />-->
+    <link href="{% static 'login/assets/materialize/css/materialize.min.css' %}" media="screen,projection" rel="stylesheet"/>
+    <!-- Bootstrap Styles-->
+   <!--  <link href="assets/css/bootstrap.css" rel="stylesheet" />-->
+    <link href="{% static 'login/assets/css/bootstrap.css' %}" rel="stylesheet"/>
+    <!-- FontAwesome Styles-->
+<!--    <link href="assets/css/font-awesome.css" rel="stylesheet" /> -->
+    <link href="{% static 'login/assets/css/font-awesome.css' %}" rel="stylesheet"/>
+    <!-- Morris Chart Styles-->
+<!--    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />  -->
+    <link href="{% static 'login/assets/js/morris/morris-0.4.3.min.css' %}" rel="stylesheet"/>
+    <!-- Custom Styles-->
+    <!--    <link href="assets/css/custom-styles.css" rel="stylesheet" /> -->
+    <link href="{% static 'login/assets/css/custom-styles.css' %}" rel="stylesheet"/>
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <!-- <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css"> -->
+     <link href="{% static 'login/assets/js/Lightweight-Chart/cssCharts.css' %}" rel="stylesheet"/>
+     <!-- echarts-->
+  <!--  <script src="echarts/echarts.min.js"></script> -->
+    <script src="{% static 'login/echarts/echarts.min.js' %}"></script>
+  <!--  <script src="echarts/echarts.js"></script> -->
+    <script src="{% static 'login/echarts/echarts.js' %}"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+               <a class="navbar-brand waves-effect waves-dark" href="index.html"><span class="glyphicon glyphicon-search"></span><strong>灾害舆情</strong></a>
+				
+		<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right"> 
+				  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>John Doe</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+        </nav>
+		<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+{#<li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>#}
+{#</li>#}
+{#<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>#}
+{#</li> #}
+<li><a href="/logout/"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
+</li>
+</ul>
+ 
+	   <!--/. NAV TOP  左边侧栏--> 
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                   <!--  <li>
+                        <a class=" waves-effect waves-dark" href="index.html"><i class="fa fa-home"></i> 首页</a>
+                    </li> -->
+                    <li>
+                        <a href="{% url 'login:table' event.id %}" class="active-menu waves-effect waves-dark"><i class="fa fa-list-alt"></i> 事件概况</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login:spread' event.id %}" class="  waves-effect waves-dark"><i class="fa fa-signal"></i> 传播分析</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login:remark' event.id %}" class=" waves-effect waves-dark"><i class="fa fa-comments"></i> 舆论聚合</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login:people' event.id %}" class="waves-effect waves-dark"><i class="fa fa-user"></i>人群画像</a>
+                    </li>
+                    
+                    
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+      <!-- 	主内容 -->
+		<div id="page-wrapper">
+		  <div class="header"> 
+                        <h1 class="page-header">
+                            事件概况
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="table.html">Detail</a></li>
+					  <li class="active">Data</li>
+					</ol> 
+									
+		</div>
+            <div id="page-inner">
+
+			 <div class="col-md-12">
+	               <div class="card">
+	               	 <div class="icon-preview col s6 m3"><i class="fa fa-question-circle"></i> 事件名</div>
+						<div class="card-content">
+							 <div class="alert alert-info">
+
+									<strong style="font-size: 20px;">{{ event.event_name }}</strong>
+
+                             </div>
+								<div class="icon-preview col s6 m3" style="margin-left: 10px;"><i class="fa fa-bars"></i> 事件概况</div>
+	  							 <div class="alert alert-success" >
+									{{ event.time|date:"Y年n月d日" }},{{ event.event_description }}
+								</div>
+	</div>
+  </div>
+			</div>	
+
+
+				
+                <div class="col-md-12">
+
+                    <div class="card">
+                    	<div class="icon-preview col s6 m3"><i class="material-icons dp48">equalizer</i><span>事件趋势</span></div>
+                    <div id="hot" style="width: 600px;height:500px;"></div>
+                    </div>
+                 <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var Hot= echarts.init(document.getElementById('hot'));
+
+        // 指定图表的配置项和数据
+        option = {
+    tooltip: {
+        trigger: 'axis'
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    xAxis: [{
+        type: 'category',
+        {% now "H" as nowtime%}
+        data: ['{{ nowtime|add:"-6"}}:00','{{ nowtime|add:"-5"}}:00','{{ nowtime|add:"-4"}}:00','{{ nowtime|add:"-3"}}:00','{{ nowtime|add:"-2"}}:00','{{ nowtime|add:"-1" }}:00'],
+        axisLine: {
+            lineStyle: {
+                color: "#999"
+            }
+        }
+    }],
+    yAxis: [{
+        type: 'value',
+        splitNumber: 4,
+        splitLine: {
+            lineStyle: {
+                type: 'dashed',
+                color: '#DDD'
+            }
+        },
+        axisLine: {
+            show: false,
+            lineStyle: {
+                color: "#333"
+            },
+        },
+        nameTextStyle: {
+            color: "#999"
+        },
+        splitArea: {
+            show: false
+        }
+    }],
+    series: [{
+        name: '热度',
+        type: 'line',
+        data: [{{ hots.past_sixhour_hot }},{{ hots.past_fivehour_hot }},{{ hots.past_fourhour_hot }},{{ hots.past_threehour_hot }},{{ hots.past_twohour_hot }},{{ hots.past_onehour_hot }}],
+        lineStyle: {
+            normal: {
+                width: 8,
+                color: {
+                    type: 'linear',
+
+                    colorStops: [{
+                        offset: 0,
+                        color: '#A9F387' // 0% 处的颜色
+                    }, {
+                        offset: 1,
+                        color: '#48D8BF' // 100% 处的颜色
+                    }],
+                    globalCoord: false // 缺省为 false
+                },
+                shadowColor: 'rgba(72,216,191, 0.3)',
+                shadowBlur: 10,
+                shadowOffsetY: 20
+            }
+        },
+        itemStyle: {
+            normal: {
+                color: '#fff',
+                borderWidth: 10,
+                /*shadowColor: 'rgba(72,216,191, 0.3)',
+                shadowBlur: 100,*/
+                borderColor: "#A9F387"
+            }
+        },
+        smooth: true
+    }]
+};
+        // 使用刚指定的配置项和数据显示图表。
+        Hot.setOption(option);
+    </script>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+<!--   <script src="assets/js/jquery-1.10.2.js"></script> -->
+	<script src="{% static 'login/assets/js/jquery-1.10.2.js' %}"></script>
+	<!-- Bootstrap Js -->
+<!--    <script src="assets/js/bootstrap.min.js"></script> -->
+	<script src="{% static 'login/assets/js/bootstrap.min.js' %}"></script>
+<!--	<script src="assets/materialize/js/materialize.min.js"></script> -->
+	<script src="{% static 'login/assets/materialize/js/materialize.min.js' %}"></script>
+    <!-- Metis Menu Js -->
+ <!--   <script src="assets/js/jquery.metisMenu.js"></script> -->
+         <script src="{% static 'login/assets/js/jquery.metisMenu.js' %}"></script>
+    <!-- Morris Chart Js -->
+  <!--  <script src="assets/js/morris/raphael-2.1.0.min.js"></script> -->
+        <script src="{% static 'login/assets/js/morris/raphael-2.1.0.min.js' %}"></script>
+<!--    <script src="assets/js/morris/morris.js"></script> -->
+	<script src="{% static 'login/assets/js/morris/morris.js' %}"></script>
+	
+<!--	<script src="assets/js/easypiechart.js"></script> -->
+        <script src="{% static 'login/assets/js/easypiechart.js' %}"></script>
+<!--	<script src="assets/js/easypiechart-data.js"></script> -->
+	 <script src="{% static 'login/assets/js/easypiechart-data.js' %}"></script>
+<!--	 <script src="assets/js/Lightweight-Chart/jquery.chart.js"></script> -->
+	 <script src="{% static 'login/assets/js/Lightweight-Chart/jquery.chart.js' %}"></script>
+    <!-- Custom Js -->
+  <!--  <script src="assets/js/custom-scripts.js"></script> -->
+        <script src="{% static 'login/assets/js/custom-scripts.js' %}"></script>
+
+
+</body>
+
+</html>
