@@ -1,0 +1,3 @@
+import pymysql
+#django链接MySQL时，默认使用MySQLdb驱动，但MySQL不支持Python3，因此这里将MySQL驱动是指为pymsql
+pymysql.install_as_MySQLdb()
