@@ -49,7 +49,7 @@ class events(models.Model):
     hot=models.IntegerField(null=True)
 
     class Meta:
-        # ordering = ["-time"]
+        ordering = ["-time"]
         db_table='events'
 
 class past_hours_hot(models.Model):

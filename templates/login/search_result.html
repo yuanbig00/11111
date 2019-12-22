@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询结果</title>
+</head>
+<body>
+{% extends "login/base.html" %}
+{% load staticfiles %}
+
+<!-- 写入 base.html 中定义的 title -->
+{% block title %}
+    首页
+{% endblock title %}
+
+<!-- 写入 base.html 中定义的 content -->
+{% block content %}
+
+<h4>你要搜索的关键词是:“<span style="color: #b21f2d"><strong>{{ query }}</strong></span>”</h4>
+{% if search  %}
+<h4>共找到<span style="color: #b21f2d">{{ search|length }}条记录</span></h4>
+    <div class="container">
+    <div class="row mt-2">
+    {% for i in search %}
+        <div class="col-4 mb-4">
+        <div class="card h-100">
+    <h4 class="card-header"><a href="{% url 'login:table' i.id %}" target="_blank">{{ i.event_name }}</a></h4>
+            <div class="card-body">
+        <p class="card-text">{{ i.event_description }}</p></div>
+            <div class="card-footer">
+        <p class="card-text" align="center">{{ i.hot }}
+        <img src="/static/login/img/huohua.png" height="25" width="25"></p>
+        <p class="card-text" align="center">{{ i.time }}</p>
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+
+{% else%}
+<p>抱歉，没有找到包含您所查找关键词的内容</p>
+    <p><a href="{% url 'login:search_form'%}">返回首页</a></p>
+{% endif %}
+    </div>
+    </div>
+
+{% endblock content %}
+</body>
+</html>

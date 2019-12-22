@@ -14,5 +14,8 @@ urlpatterns = [
     path('remark/', views.remark),
     path('spread/', views.spread),
     path('people/', views.people),
-    path('captcha/', include('captcha.urls'))   # 增加这一行
+    path('captcha/', include('captcha.urls')),  # 增加这一行
+    path('search_form/',views.search_form),
+    path('search_result/', views.search_result),
+    path('show/<int:id>/',views.show,name="show"),
 ]

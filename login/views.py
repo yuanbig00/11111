@@ -4,7 +4,8 @@ from . import models
 from . import forms
 from .models import events
 import hashlib
-
+from django.shortcuts import render_to_response
+from django.core.paginator import Paginator
 # Create your views here.
 
 
@@ -17,8 +18,6 @@ def index(request):
 
 
 def login(request):
-    if request.session.get('is_login', None):  # 不允许重复登录
-        return redirect('/index/')
     if request.method == 'POST':
         login_form = forms.UserForm(request.POST)
         message = '请检查填写的内容！'
@@ -36,7 +35,7 @@ def login(request):
                 request.session['is_login'] = True
                 request.session['user_id'] = user.id
                 request.session['user_name'] = user.name
-                return redirect('/index/')
+                return redirect('/search_form/')
             else:
                 message = '密码不正确！'
                 return render(request, 'login/login.html', locals())
@@ -48,8 +47,8 @@ def login(request):
 
 
 def register(request):
-    if request.session.get('is_login', None):
-        return redirect('/index/')
+    # if request.session.get('is_login', None):
+    #     return redirect('/search_form/')
 
     if request.method == 'POST':
         register_form = forms.RegisterForm(request.POST)
@@ -124,3 +123,29 @@ def spread(request,id):
 def people(request,id):
     event = models.events.objects.get(id=id)
     return render(request, 'login/people.html', {'event': event})
+
+def search_form(request):
+    if not request.session.get('is_login', None):
+        return redirect('/login/')
+    if request.GET.get('order')=='pass_onehour_hot':#字段热度，不是事件热度
+        articles_list=events.objects.all().order_by('-hot')[:30]
+        order='hot'
+    else:
+        articles_list=events.objects.all()[:30]
+        order='normal'
+    paginator=Paginator(articles_list,6)
+    page=request.GET.get('page')
+    articles=paginator.get_page(page)
+    context={'articles':articles,'order':order}
+    return  render_to_response('login/search_form.html',context)
+
+def search_result(request):
+    if 'q' in request.GET or request.GET['q']:
+        q=request.GET['q']
+        search=events.objects.filter(event_name__icontains=q)
+        return render_to_response('login/search_result.html',{'search':search,'query':q})
+    else:
+        render_to_response('login/search_form.html',{'error':True})
+def show(request,id):
+    content=events.objects.get(id=id)
+    return render_to_response('login/show.html',{"content":content})
