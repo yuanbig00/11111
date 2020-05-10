@@ -5,8 +5,10 @@ from login import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', views.index),
+    path('', views.first),
     path('login/', views.login),
+    path('index/', views.index),
+    path('index1/', views.index),
     path('login/', include('login.urls',namespace='login')),
     path('register/', views.register),
     path('logout/', views.logout),

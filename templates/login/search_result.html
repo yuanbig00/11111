@@ -18,7 +18,7 @@
 
 <h4>你要搜索的关键词是:“<span style="color: #b21f2d"><strong>{{ query }}</strong></span>”</h4>
 {% if search  %}
-<h4>共找到<span style="color: #b21f2d">{{ search|length }}条记录</span></h4>
+<h4>共找到<span style="color: #b21f2d">{{ search|length }}条记录</span></h4><p><a href="{% url 'login:search_form'%}">返回首页</a></p>
     <div class="container">
     <div class="row mt-2">
     {% for i in search %}
@@ -34,6 +34,7 @@
             </div>
         </div>
         </div>
+
     {% endfor %}
 
 {% else%}

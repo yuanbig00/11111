@@ -29,7 +29,7 @@
                 </a>
             </li>
             <li class="breadcrumb-item">
-                <a href="?order=pass_onehour_hot">
+                <a href="?order=hot">
                     最热
                 </a>
             </li>
@@ -41,12 +41,18 @@
         <div class="col-auto mr-auto">
             <form class="form-inline" action="{% url 'login:search_result'%}" method="get">
                 <label class="sr-only">content</label>
-                <input type="text"
-                    class="form-control mb-2 mr-sm-2"
-                    name="q"
-                    placeholder="搜索事件..."
-                >
-                <input type="submit" value="搜索"/>
+{#                <input type="text"#}
+{#                    class="form-control mb-2 mr-sm-2"#}
+{#                    name="q"#}
+{#                    placeholder="搜索事件..."#}
+{#                >#}
+{#                <input type="submit" value="搜索"/>#}
+
+            <input type="text" class="form-control"  name="q" placeholder="请输入搜索关键字"  >
+            <span class="input-group-btn">
+               <button type="submit" class="btn btn-info btn-search">查找</button>
+            </span>
+
             </form>
         </div>
     </div>
@@ -63,7 +69,7 @@
             <div class="card-footer">
         <p class="card-text" align="center">{{ article.hot }}
         <img src="/static/login/img/huohua.png" height="25" width="25"></p>
-        <p class="card-text" align="center">{{ article.time }}</p>
+        <p class="card-text" align="center">{{ article.time|date:"Y年n月d日" }}</p>
             </div>
         </div>
         </div>

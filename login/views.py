@@ -6,6 +6,7 @@ from .models import events
 import hashlib
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator
+import json
 # Create your views here.
 
 
@@ -13,7 +14,7 @@ def index(request):
     if not request.session.get('is_login', None):
         return redirect('/login/')
     events=models.events.objects.all()
-    return render(request, 'login/index.html',{'events': events})
+    return render(request, 'login/search_form.html',{'events': events})
 
 
 
@@ -112,7 +113,11 @@ def table(request,id):
 def remark(request,id):
     event = models.events.objects.get(id=id)
     person=models.person_remarks.objects.get(id=id)
-    return render(request, 'login/remark.html', {'event': event,'person':person})
+
+    word_cloud=event.word_cloud
+    datalist = word_cloud.split('*')
+    datalist = [json.loads(j) for j in datalist]
+    return render(request, 'login/remark.html', {'word_cloud':datalist,'event': event,'person':person})
 
 
 def spread(request,id):
@@ -122,12 +127,15 @@ def spread(request,id):
 
 def people(request,id):
     event = models.events.objects.get(id=id)
-    return render(request, 'login/people.html', {'event': event})
+    number = event.famale + event.male
+    female = event.famale / number*100
+    male = event.male / number*100
+    return render(request, 'login/people.html', {'event': event,'female':female,'male':male})
 
 def search_form(request):
     if not request.session.get('is_login', None):
         return redirect('/login/')
-    if request.GET.get('order')=='pass_onehour_hot':#字段热度，不是事件热度
+    if request.GET.get('order')=='hot':#字段热度，不是事件热度
         articles_list=events.objects.all().order_by('-hot')[:30]
         order='hot'
     else:
@@ -149,3 +157,6 @@ def search_result(request):
 def show(request,id):
     content=events.objects.get(id=id)
     return render_to_response('login/show.html',{"content":content})
+def first(request):
+    pass
+    return render(request, 'login/first.html', locals())
