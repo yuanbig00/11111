@@ -47,12 +47,15 @@ address span{
 	overflow:hidden;
 }
 a{
-	color: #fa694e;
+	  font-size: 1.5rem;
+  padding: 1rem 3rem;
+  color: #6dc5d6;
+  text-transform: uppercase;
 }
 
 a:hover,
 a:focus{
-	color: #FA4B2A;
+	color: #ffffff;
 }
 
 .logo{
@@ -421,4 +424,42 @@ ul.social-icons > li > a{
 	.jumbotron .h1 {
 		font-size: 75px;
 	}
+}
+.container1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+
+.btn1 {
+  text-decoration: none;
+  border: 1px solid rgb(146, 148, 248);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn1:hover {
+  box-shadow: 1px 1px 25px 10px rgba(146, 148, 248, 0.4);
+}
+
+.btn1:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(146, 148, 248, 0.4),
+    transparent
+  );
+  transition: all 650ms;
+}
+
+.btn1:hover:before {
+  left: 100%;
 }
