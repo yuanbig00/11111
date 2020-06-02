@@ -126,11 +126,12 @@ def spread(request,id):
 
 
 def people(request,id):
+    user = models.User.objects.name
     event = models.events.objects.get(id=id)
     number = event.famale + event.male
     female = event.famale / number*100
     male = event.male / number*100
-    return render(request, 'login/people.html', {'event': event,'female':female,'male':male})
+    return render(request, 'login/people.html', {'event': event,'female':female,'male':male,'user':user})
 
 def search_form(request):
     if not request.session.get('is_login', None):
